@@ -85,7 +85,7 @@ const EditBook = () => {
   }, [location, bookId]);
 
   return (
-    <>
+    <div className="main">
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
@@ -93,10 +93,10 @@ const EditBook = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <h1>Update Book</h1>
       <Toaster />
       <div className="form">
-        <div className="book-name">
+        <h1>Update Book</h1>
+        <div className="info">
           <label htmlFor="name" className="name">
             Book name
           </label>
@@ -111,7 +111,7 @@ const EditBook = () => {
           />
         </div>
 
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="author" className="author">
             Author
           </label>
@@ -125,7 +125,7 @@ const EditBook = () => {
             value={author}
           />
         </div>
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="description" className="description">
             Description
           </label>
@@ -139,7 +139,7 @@ const EditBook = () => {
             value={description}
           ></textarea>
         </div>
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="category" className="category">
             Category
           </label>
@@ -158,7 +158,7 @@ const EditBook = () => {
             required
           />
         </div>
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="image" className="image">
             Image URL
           </label>
@@ -172,7 +172,7 @@ const EditBook = () => {
             value={image}
           />
         </div>
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="book">Book URL</label>
           <input
             type="text"
@@ -184,13 +184,13 @@ const EditBook = () => {
             value={bookUrl}
           />
         </div>
-        <div className="book-submit">
+        <div className="submit">
           <button className="submit" onClick={() => handleUpdate()}>
             Submit
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

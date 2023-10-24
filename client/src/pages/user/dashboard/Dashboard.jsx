@@ -128,36 +128,35 @@ const Dashboard = () => {
   const [pageSize, setPageSize] = React.useState(0);
 
   const fetchData = async () => {
-    if (!userId) {
-      navigate('/login');
-    }
-    setOpen(true);
-    await axios
-      .get(`/books/admin/${userId}`)
-      .then((res) => {
-        // console.log(res.data);
-        setPageSize(res.data.count);
-
-        setUserStatus(res.data.status);
-        // setBooks(res.data.books);
-        var rw = [];
-        if (res.data.books.length > 0) {
-          res.data.books.map((book, i) =>
-            rw.push({
-              id: i + 1,
-              title: book.title,
-              author: book.author,
-              uploader: book.user.name,
-              _id: book._id,
-            })
-          );
-          setRows(rw);
-        }
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message || err.message);
-      });
-    setOpen(false);
+    // if (!userId) {
+    //   navigate('/login');
+    // }
+    // setOpen(true);
+    // await axios
+    //   .get(`/books/admin/${userId}`)
+    //   .then((res) => {
+    //     // console.log(res.data);
+    //     setPageSize(res.data.count);
+    //     setUserStatus(res.data.status);
+    //     // setBooks(res.data.books);
+    //     var rw = [];
+    //     if (res.data.books.length > 0) {
+    //       res.data.books.map((book, i) =>
+    //         rw.push({
+    //           id: i + 1,
+    //           title: book.title,
+    //           author: book.author,
+    //           uploader: book.user.name,
+    //           _id: book._id,
+    //         })
+    //       );
+    //       setRows(rw);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     toast.error(err.response.data.message || err.message);
+    //   });
+    // setOpen(false);
   };
 
   useEffect(() => {
@@ -166,24 +165,26 @@ const Dashboard = () => {
   }, [userId]);
 
   return (
-    <div className="dashboard">
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-        onClick={handleClose}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <h1>Dashboard - {userStatus.toUpperCase()}</h1>
-      <Toaster />
-      <Box sx={{ height: 600, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columnsAdmin}
-          pageSize={9}
-          rowsPerPageOptions={[pageSize]}
-        />
-      </Box>
+    <div className="main">
+      <div className="dashboard">
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+          onClick={handleClose}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <h1>Dashboard - {userStatus.toUpperCase()}</h1>
+        <Toaster />
+        <Box sx={{ height: 600, width: '100%' }}>
+          <DataGrid
+            rows={rows}
+            columns={columnsAdmin}
+            pageSize={9}
+            rowsPerPageOptions={[pageSize]}
+          />
+        </Box>
+      </div>
     </div>
   );
 };

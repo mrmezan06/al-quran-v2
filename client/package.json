@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
@@ -14,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.5.1",
     "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
     "react-dom": "^18.2.0",

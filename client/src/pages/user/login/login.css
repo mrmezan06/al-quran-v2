@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 80vh;
+    user-select: none;
 }
 
 .header {
@@ -38,12 +39,19 @@
     margin-bottom: 5px;
 }
 
-.info > input {
+.info > input, .info > textarea {
     border: 1px solid #09a2e9;
     border-radius: 5px;
     padding: 5px;
     width: 100%;
     margin-bottom: 10px;
+}
+
+.info > input:focus, .info > textarea:focus {
+    outline: none;
+}
+.info > textarea {
+  columns: 20;
 }
 
 
@@ -78,7 +86,7 @@
 .submit > button {
   background-color: #09a2e9;
   border: none;
-  padding: 4px 6px;
+  padding: 6px 10px;
   color: white;
   border-radius: 5px;
 }

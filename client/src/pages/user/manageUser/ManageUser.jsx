@@ -155,45 +155,44 @@ const ManageUser = () => {
   ];
 
   const fetchData = async () => {
-    if (!userId) {
-      navigate('/login');
-    }
-    setOpen(true);
-    await axios
-      .get(`/auth/users/${userId}`)
-      .then((res) => {
-        // console.log(res.data);
-        setPageSize(res.data.count);
-
-        var rw = [];
-        if (res.data.users.length > 0) {
-          res.data.users.map((user, i) =>
-            rw.push({
-              id: i + 1,
-              name: user.name,
-              email: user.email,
-              createdAt: formatInTimeZone(
-                parseISO(user.createdAt),
-                'Asia/Dhaka',
-                'yyyy-MM-dd hh:mm:ss a'
-              ),
-              updatedAt: formatInTimeZone(
-                parseISO(user.updatedAt),
-                'Asia/Dhaka',
-                'yyyy-MM-dd hh:mm:ss a'
-              ),
-              isAdmin: user.isAdmin,
-              status: user.status,
-              _id: user._id,
-            })
-          );
-          setRows(rw);
-        }
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message || err.message);
-      });
-    setOpen(false);
+    // if (!userId) {
+    //   navigate('/login');
+    // }
+    // setOpen(true);
+    // await axios
+    //   .get(`/auth/users/${userId}`)
+    //   .then((res) => {
+    //     // console.log(res.data);
+    //     setPageSize(res.data.count);
+    //     var rw = [];
+    //     if (res.data.users.length > 0) {
+    //       res.data.users.map((user, i) =>
+    //         rw.push({
+    //           id: i + 1,
+    //           name: user.name,
+    //           email: user.email,
+    //           createdAt: formatInTimeZone(
+    //             parseISO(user.createdAt),
+    //             'Asia/Dhaka',
+    //             'yyyy-MM-dd hh:mm:ss a'
+    //           ),
+    //           updatedAt: formatInTimeZone(
+    //             parseISO(user.updatedAt),
+    //             'Asia/Dhaka',
+    //             'yyyy-MM-dd hh:mm:ss a'
+    //           ),
+    //           isAdmin: user.isAdmin,
+    //           status: user.status,
+    //           _id: user._id,
+    //         })
+    //       );
+    //       setRows(rw);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     toast.error(err.response.data.message || err.message);
+    //   });
+    // setOpen(false);
   };
 
   useEffect(() => {
@@ -202,24 +201,26 @@ const ManageUser = () => {
   }, [userId]);
 
   return (
-    <div className="dashboard">
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-        onClick={handleClose}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <h1>Manage User</h1>
-      <Toaster />
-      <Box sx={{ height: 600, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columnsAdmin}
-          pageSize={9}
-          rowsPerPageOptions={[pageSize]}
-        />
-      </Box>
+    <div className="main">
+      <div className="dashboard">
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+          onClick={handleClose}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <h1>Manage User</h1>
+        <Toaster />
+        <Box sx={{ height: 600, width: '100%' }}>
+          <DataGrid
+            rows={rows}
+            columns={columnsAdmin}
+            pageSize={9}
+            rowsPerPageOptions={[pageSize]}
+          />
+        </Box>
+      </div>
     </div>
   );
 };

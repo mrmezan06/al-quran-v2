@@ -59,7 +59,7 @@ const Upload = () => {
     setOpen(false);
   };
   return (
-    <>
+    <div className="main">
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
@@ -67,10 +67,10 @@ const Upload = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <h1>Upload Books</h1>
       <Toaster />
       <div className="form">
-        <div className="book-name">
+        <h1>Upload Books</h1>
+        <div className="info">
           <label htmlFor="name" className="name">
             Book name
           </label>
@@ -85,7 +85,7 @@ const Upload = () => {
           />
         </div>
 
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="author" className="author">
             Author
           </label>
@@ -99,21 +99,20 @@ const Upload = () => {
             required
           />
         </div>
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="description" className="description">
             Description
           </label>
           <textarea
             name="description"
             id="description"
-            cols="10"
             value={description}
             placeholder="Description of the book"
             onChange={(e) => setDescription(e.target.value)}
             required
           ></textarea>
         </div>
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="category" className="category">
             Category
           </label>
@@ -132,7 +131,7 @@ const Upload = () => {
             required
           />
         </div>
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="image" className="image">
             Image URL
           </label>
@@ -146,7 +145,7 @@ const Upload = () => {
             required
           />
         </div>
-        <div className="book-name">
+        <div className="info">
           <label htmlFor="book">Book URL</label>
           <input
             type="text"
@@ -158,13 +157,13 @@ const Upload = () => {
             required
           />
         </div>
-        <div className="book-submit">
+        <div className="submit">
           <button className="submit" onClick={() => handleUpload()}>
             Submit
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -59,22 +59,22 @@ const Profile = () => {
   };
 
   const fetchData = async (id) => {
-    if (!id) {
-      navigate('/login');
-    }
-    setOpen(true);
-    await axios
-      .get(`/auth/user/${id}`)
-      .then((res) => {
-        setEmail(res.data.email);
-        setName(res.data.name);
-        setPassword(res.data.password);
-        setprofileImg(res.data.profileImg);
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
-    setOpen(false);
+    // if (!id) {
+    //   navigate('/login');
+    // }
+    // setOpen(true);
+    // await axios
+    //   .get(`/auth/user/${id}`)
+    //   .then((res) => {
+    //     setEmail(res.data.email);
+    //     setName(res.data.name);
+    //     setPassword(res.data.password);
+    //     setprofileImg(res.data.profileImg);
+    //   })
+    //   .catch((err) => {
+    //     toast.error(err.message);
+    //   });
+    // setOpen(false);
   };
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const Profile = () => {
   }, [userId]);
 
   return (
-    <>
+    <div className="main">
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
@@ -104,8 +104,8 @@ const Profile = () => {
           className="profileImg"
         />
       </div>
-      <div className="form">
-        <div className="book-name">
+      <div className="form mt-2">
+        <div className="info">
           <label htmlFor="name" className="name">
             Full Name
           </label>
@@ -120,7 +120,7 @@ const Profile = () => {
           />
         </div>
 
-        <div className="book-name">
+        <div className="info mt-1">
           <label htmlFor="email" className="email">
             Email
           </label>
@@ -135,7 +135,7 @@ const Profile = () => {
           />
         </div>
 
-        <div className="book-name">
+        <div className="info mt-1">
           <label htmlFor="password" className="password">
             Change Password
           </label>
@@ -148,7 +148,7 @@ const Profile = () => {
           />
         </div>
 
-        <div className="book-name">
+        <div className="info mt-1">
           <label htmlFor="profileImg" className="profileImgUrl">
             Profile Image
           </label>
@@ -167,7 +167,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
