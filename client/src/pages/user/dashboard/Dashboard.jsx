@@ -165,7 +165,7 @@ const Dashboard = () => {
   }, [userId]);
 
   return (
-    <div className="main">
+    <div className="main-user">
       <div className="dashboard">
         <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

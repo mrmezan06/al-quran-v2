@@ -23,7 +23,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <NavDropdown title="Hadith" id="hadithMenu">
+              {/* <NavDropdown title="Hadith" id="hadithMenu">
                 {index &&
                   index.map((item) => (
                     <LinkContainer
@@ -39,8 +39,24 @@ const Header = () => {
                 <LinkContainer to="/hadith/index">
                   <NavDropdown.Item>Hadith Index</NavDropdown.Item>
                 </LinkContainer>
-              </NavDropdown>
+              </NavDropdown> */}
+              {/* Video Section */}
+              <NavDropdown title="Video" id="videoMenu">
+                <LinkContainer to="/quran-video">
+                  <NavDropdown.Item>AL Quran Video</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/hadith-video">
+                  <NavDropdown.Item>Hadith Video</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/history-video">
+                  <NavDropdown.Item>Islamic History Video</NavDropdown.Item>
+                </LinkContainer>
 
+                <NavDropdown.Divider variant="dark" />
+                <LinkContainer to="/index-video">
+                  <NavDropdown.Item>Video Index</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
               {/* PDF COLLECTION */}
               <NavDropdown title="PDF Collection" id="pdfMenu">
                 <LinkContainer to="/quran-pdf">
@@ -52,9 +68,7 @@ const Header = () => {
                 <LinkContainer to="/history-pdf">
                   <NavDropdown.Item>Islamic History PDF</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/others-pdf">
-                  <NavDropdown.Item>Islamic Others PDF</NavDropdown.Item>
-                </LinkContainer>
+
                 <NavDropdown.Divider variant="dark" />
                 <LinkContainer to="/index-pdf">
                   <NavDropdown.Item>PDF Index</NavDropdown.Item>
@@ -64,6 +78,10 @@ const Header = () => {
               {/* About Us */}
               <LinkContainer to="/about">
                 <Nav.Link>About US</Nav.Link>
+              </LinkContainer>
+              {/* About Us */}
+              <LinkContainer to="/user/login">
+                <Nav.Link>Login</Nav.Link>
               </LinkContainer>
             </Nav>
           </Navbar.Collapse>
