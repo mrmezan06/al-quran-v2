@@ -27,7 +27,7 @@ const HomePage = () => {
       ) : (
         <>
           <div className="main">
-            <h1 className="text-center py-3 text-white bg-info font-weight-bold font-italic user-select-none">
+            <h1 className="text-center rounded px-2 py-3 text-white bg-info font-weight-bold font-italic user-select-none">
               Al - Quran
             </h1>
             <Table striped bordered hover responsive className="table-sm mt-1">

@@ -2,12 +2,10 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import BookIndexPage from './pages/Hadith/BookIndexPage';
 import SuraPage from './pages/Sura/SuraPage';
 import About from './pages/About';
-import HadithIndex from './pages/Hadith/HadithIndex';
-import HadithPage from './pages/Hadith/HadithPage';
-import HadithByChapter from './pages/Hadith/HadithByChapter';
+import Login from './pages/user/login/Login';
+import Registration from './pages/user/registration/Registration';
 
 const App = () => {
   return (
@@ -15,21 +13,12 @@ const App = () => {
       <Header />
       <div className="container-fluid p-2 fix">
         <Routes>
-          <Route
-            path="/hadith/chapter/:book_key/:start/:range/:chapter"
-            element={<HadithByChapter />}
-          />
-          <Route
-            path="/hadith/index/:book_key/:pageNumber"
-            element={<BookIndexPage />}
-          />
-          <Route path="/hadith/index/:book_key" element={<BookIndexPage />} />
-          <Route path="/hadith/index" element={<HadithIndex />} exact />
-          <Route
-            path="/hadith/:book_key/:pageNumber"
-            element={<HadithPage />}
-          />
-          <Route path="/hadith/:book_key" element={<HadithPage />} />
+          {/* User Section */}
+          <Route path="/user/login" element={<Login />} />
+          <Route path="/user/register" element={<Registration />} />
+          {/* Book Section */}
+
+          {/* Quran Section */}
           <Route path="/sura/:sura_number/:pageNumber" element={<SuraPage />} />
           <Route path="/sura/:sura_number/" element={<SuraPage />} />
           <Route path="/about" element={<About />} />
