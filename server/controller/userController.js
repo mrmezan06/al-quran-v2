@@ -72,6 +72,8 @@ const login = async (req, res) => {
     user.accessToken = token;
     await user.save();
 
+    user.password = '';
+
     res.status(200).json({ ...user._doc, accessToken: token });
   } catch (error) {
     res.status(502).json({
@@ -100,7 +102,7 @@ const logout = async (req, res) => {
 
 const tokenLogin = async (req, res) => {
   try {
-    const token = req.headers.accesstoken;
+    const token = req.body.accesstoken;
 
     if (!token) {
       return res

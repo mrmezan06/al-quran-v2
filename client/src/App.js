@@ -12,8 +12,18 @@ import Dashboard from './pages/user/dashboard/Dashboard';
 import ManageUser from './pages/user/manageUser/ManageUser';
 import Profile from './pages/user/profile/Profile';
 import Read from './pages/user/read/Read';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { tokenLogin } from './actions/userActions';
 
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(tokenLogin());
+  }, [dispatch]);
+
   return (
     <Router>
       <Header />

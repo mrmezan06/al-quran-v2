@@ -9,6 +9,7 @@ import {
   hadithsByBookKeyReducer,
 } from './reducers/hadithReducer';
 import { quranIndexReducer, getSuraReducer } from './reducers/quranReducer';
+import { tokenLoginReducer } from './reducers/userReducer';
 
 const reducer = combineReducers({
   hadithIndex: hadithIndexReducer,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   hadithsByBookKey: hadithsByBookKeyReducer,
   quranIndex: quranIndexReducer,
   sura: getSuraReducer,
+  userinfo: tokenLoginReducer,
 });
 
 const initialState = {};

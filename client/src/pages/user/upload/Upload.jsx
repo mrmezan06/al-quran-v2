@@ -5,49 +5,46 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useNavigate } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
+import { BASE_URL } from '../../../constants/BASE_URL';
 
 const Upload = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState([]);
-  const [image, setImage] = useState('');
-  const [bookUrl, setBookUrl] = useState('');
+  const [part, setPart] = useState(1);
+  const [category, setCategory] = useState();
+  const [url, setUrl] = useState([]);
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.userinfo.user);
 
   const handleClose = () => {
     setOpen(false);
   };
   const handleUpload = async (e) => {
-    const userId = localStorage.getItem('userID');
-    if (!userId) {
-      navigate('/login');
-    }
-    if (!title || !author || !description || !category || !image || !bookUrl) {
+    if (!title || !author || !part || !category || !url) {
       toast.error('Please fill-up all the fields');
       return;
     }
+
     setOpen(true);
     await axios
-      .post(`/books/upload/${userId}`, {
+      .post(`${BASE_URL}/book/upload/${user?._id}`, {
         title,
         author,
-        description,
+        part,
         category,
-        image,
-        bookUrl,
+        url,
       })
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
           toast.success('Book uploaded successfully');
           setTitle('');
           setAuthor('');
-          setDescription('');
-          setCategory([]);
-          setImage('');
-          setBookUrl('');
+          setPart(0);
+          setCategory('');
+          setUrl([]);
         } else {
           toast.error(`Book upload failed with status code: ${res.status}`);
         }
@@ -101,16 +98,17 @@ const Upload = () => {
         </div>
         <div className="info">
           <label htmlFor="description" className="description">
-            Description
+            Part
           </label>
-          <textarea
-            name="description"
-            id="description"
-            value={description}
-            placeholder="Description of the book"
-            onChange={(e) => setDescription(e.target.value)}
+          <input
+            name="part"
+            id="part"
+            value={part}
+            type="number"
+            placeholder="Number of Part"
+            onChange={(e) => setPart(e.target.value)}
             required
-          ></textarea>
+          ></input>
         </div>
         <div className="info">
           <label htmlFor="category" className="category">
@@ -120,40 +118,27 @@ const Upload = () => {
             type="text"
             name="category"
             id="category"
-            placeholder="Category of the book. Seperated by COMMA(',') Eg: Fiction,Non-Fiction, etc."
-            value={category.toString()}
+            placeholder="Category of the book. Ex: Quran, Hadith etc."
+            value={category}
             onChange={(e) => {
-              const cat = e.target.value;
-              // split by ,
-              const catArr = cat.split(',');
-              setCategory(catArr);
+              setCategory(e.target.value);
             }}
             required
           />
         </div>
-        <div className="info">
-          <label htmlFor="image" className="image">
-            Image URL
-          </label>
-          <input
-            type="text"
-            name="image"
-            id="image"
-            value={image}
-            placeholder="Image URL of the book"
-            onChange={(e) => setImage(e.target.value)}
-            required
-          />
-        </div>
+
         <div className="info">
           <label htmlFor="book">Book URL</label>
           <input
             type="text"
             name="book"
             id="book"
-            value={bookUrl}
+            value={url.toString()}
             placeholder="Book URL of the book"
-            onChange={(e) => setBookUrl(e.target.value)}
+            onChange={(e) => {
+              const urlArray = e.target.value.split(',');
+              setUrl(urlArray);
+            }}
             required
           />
         </div>

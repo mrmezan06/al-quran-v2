@@ -4,7 +4,6 @@ const bookSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      trim: true,
       required: true,
     },
     part: {
@@ -27,7 +26,7 @@ const bookSchema = new mongoose.Schema(
       default: 'Other',
     },
     url: {
-      type: Array[String],
+      type: [String],
       required: true,
     },
     author: {
@@ -40,6 +39,14 @@ const bookSchema = new mongoose.Schema(
       required: true,
     },
     uploadedAt: {
+      type: Date,
+      default: Date.now(),
+    },
+    updater: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+    },
+    updatedAt: {
       type: Date,
       default: Date.now(),
     },

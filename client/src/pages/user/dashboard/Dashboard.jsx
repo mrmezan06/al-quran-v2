@@ -9,6 +9,7 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Dashboard = () => {
   const [userStatus, setUserStatus] = useState('');
@@ -20,24 +21,24 @@ const Dashboard = () => {
   };
 
   const handleEditClick = (id) => {
-    navigate(`/edit/${rows[id - 1]._id}`);
+    // navigate(`/edit/${rows[id - 1]._id}`);
   };
   const handleDeleteClick = async (id) => {
-    setOpen(true);
-    try {
-      const bookId = rows[id - 1]._id;
-      await axios.delete(`/books/user/${userId}/${bookId}`).then((res) => {
-        if (res.status === 200) {
-          toast.success('Book Deleted Successfully');
-          fetchData();
-        } else {
-          toast.error(res.data.message);
-        }
-      });
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-    setOpen(false);
+    // setOpen(true);
+    // try {
+    //   const bookId = rows[id - 1]._id;
+    //   await axios.delete(`/books/user/${userId}/${bookId}`).then((res) => {
+    //     if (res.status === 200) {
+    //       toast.success('Book Deleted Successfully');
+    //       fetchData();
+    //     } else {
+    //       toast.error(res.data.message);
+    //     }
+    //   });
+    // } catch (error) {
+    //   toast.error(error.response.data.message);
+    // }
+    // setOpen(false);
   };
   // const columnsUser = [
   //   { field: "id", headerName: "ID", width: 100 },
@@ -158,11 +159,21 @@ const Dashboard = () => {
     //   });
     // setOpen(false);
   };
-
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userinfo.user);
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line
-  }, [userId]);
+    if (user && (user.role === 'admin' || user.role === 'uploader')) {
+      navigate('/user/dashboard', { replace: true });
+    }
+    if (user && user.role === 'user') {
+      navigate('/', { replace: true });
+    }
+    if (!user) {
+      navigate('/user/login', { replace: true });
+    }
+  }, [dispatch, navigate, user]);
 
   return (
     <div className="main-user">

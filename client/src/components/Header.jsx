@@ -1,14 +1,32 @@
 import { LinkContainer } from 'react-router-bootstrap';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Container, Nav, Navbar, NavDropdown, Toast } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { BASE_URL } from '../constants/BASE_URL';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Header = () => {
-  const hadithIndex = useSelector((state) => state.hadithIndex);
-  const { index } = hadithIndex;
-  // console.log(index);
+  const user = useSelector((state) => state.userinfo.user);
+
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await axios
+      .get(`${BASE_URL}/user/logout/${user?._id}`)
+      .then((res) => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/user/login', { replace: true });
+        toast.success('Logout Successfully');
+      })
+      .catch((err) => {
+        Toast.error('Something went wrong');
+      });
+  };
 
   return (
     <header>
+      <Toaster />
       <Navbar bg="info" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           {/* Al Quran */}
@@ -79,10 +97,35 @@ const Header = () => {
               <LinkContainer to="/about">
                 <Nav.Link>About US</Nav.Link>
               </LinkContainer>
-              {/* About Us */}
-              <LinkContainer to="/user/login">
-                <Nav.Link>Login</Nav.Link>
-              </LinkContainer>
+              {/* Login */}
+
+              {/* if user not then only login else Navdropdown show with Dashboard, Profile, Logout */}
+              {!user && (
+                <LinkContainer to="/user/login">
+                  <Nav.Link>Login</Nav.Link>
+                </LinkContainer>
+              )}
+              {user && user?.role === 'admin' && (
+                <NavDropdown title="Profile" id="userMenu">
+                  <LinkContainer to="/user/upload">
+                    <NavDropdown.Item>Upload</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/user/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/user/dashboard">
+                    <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/user/manage">
+                    <NavDropdown.Item>Manage User</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Divider variant="dark" />
+                  <NavDropdown.Item onClick={handleLogout}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import './login.css';
-
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, tokenLogin } from '../../../actions/userActions';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,26 +18,30 @@ const Login = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userinfo.user);
 
   const handleLogin = async () => {
+    toast.loading('Loading...', { duration: 2000, position: 'top-right' });
     setOpen(true);
-    await axios
-      .post('/auth/login', { email, password })
-      .then((res) => {
-        localStorage.setItem('userID', res.data._id);
-        localStorage.setItem('token', res.data.token);
-        // console.log(res.data._id);
-        if (res.status === 200) {
-          navigate(`/dashboard/${res.data._id}`);
-        } else {
-          toast.error(`Login failed: ${res.code}`);
-        }
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
+    dispatch(login(email, password));
     setOpen(false);
+    toast.dismiss();
   };
+
+  useEffect(() => {
+    dispatch(tokenLogin());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (user && (user.role === 'admin' || user.role === 'uploader')) {
+      navigate('/user/dashboard', { replace: true });
+    }
+    if (user && user.role === 'user') {
+      navigate('/', { replace: true });
+    }
+  });
+
   return (
     <div className="main-user">
       <Backdrop

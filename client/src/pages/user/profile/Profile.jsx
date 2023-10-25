@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 import toast, { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import './profile.css';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [profileImg, setprofileImg] = useState('');
   const [name, setName] = useState('');
+
+  const user = useSelector((state) => state.userinfo.user);
 
   const navigate = useNavigate();
   const userId = localStorage.getItem('userID');
@@ -22,63 +25,20 @@ const Profile = () => {
   };
 
   const handleUpdate = async () => {
-    const userId = localStorage.getItem('userID');
-    setOpen(true);
-    try {
-      if (password === '') {
-        await axios
-          .put(`/auth/user/${userId}`, { email, name, profileImg })
-          .then((res) => {
-            setEmail(res.data.email);
-            setName(res.data.name);
-            setPassword(res.data.password);
-            setprofileImg(res.data.profileImg);
-            toast.success('Profile has been updated!');
-          })
-          .catch((error) => {
-            toast.error(error.message);
-          });
-      } else {
-        await axios
-          .put(`/auth/user/${userId}`, { email, name, profileImg, password })
-          .then((res) => {
-            setEmail(res.data.email);
-            setName(res.data.name);
-            setPassword(res.data.password);
-            setprofileImg(res.data.profileImg);
-            toast.success('Profile has been updated!');
-          })
-          .catch((error) => {
-            toast.error(error.message);
-          });
-      }
-    } catch (error) {
-      toast.error(`Error updating with error code ${error.code}`);
-    }
-    setOpen(false);
-  };
-
-  const fetchData = async (id) => {
-    // if (!id) {
-    //   navigate('/login');
-    // }
-    // setOpen(true);
-    // await axios
-    //   .get(`/auth/user/${id}`)
-    //   .then((res) => {
-    //     setEmail(res.data.email);
-    //     setName(res.data.name);
-    //     setPassword(res.data.password);
-    //     setprofileImg(res.data.profileImg);
-    //   })
-    //   .catch((err) => {
-    //     toast.error(err.message);
-    //   });
-    // setOpen(false);
+    toast.success('Functionality not yet available', {
+      position: 'top-right',
+      duration: 2000,
+    });
   };
 
   useEffect(() => {
-    fetchData(userId);
+    if (user) {
+      setName(user?.name);
+      setEmail(user?.email);
+      setPassword(user?.password);
+    } else {
+      navigate('/user/login');
+    }
     // eslint-disable-next-line
   }, [userId]);
 
@@ -132,6 +92,7 @@ const Profile = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             value={email}
+            disabled
           />
         </div>
 
@@ -145,6 +106,7 @@ const Profile = () => {
             id="password"
             placeholder="Enter your new password"
             onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
         </div>
 
@@ -159,6 +121,7 @@ const Profile = () => {
             placeholder="Profile Image Url"
             onChange={(e) => setprofileImg(e.target.value)}
             value={profileImg}
+            disabled
           />
         </div>
         <div className="book-submit">
