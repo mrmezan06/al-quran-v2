@@ -10,6 +10,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
+import { BASE_URL } from '../../../constants/BASE_URL';
 
 const Dashboard = () => {
   const [userStatus, setUserStatus] = useState('');
@@ -40,55 +41,27 @@ const Dashboard = () => {
     // }
     // setOpen(false);
   };
-  // const columnsUser = [
-  //   { field: "id", headerName: "ID", width: 100 },
-  //   {
-  //     field: "title",
-  //     headerName: "Title",
-  //     width: 320,
-  //   },
-  //   {
-  //     field: "author",
-  //     headerName: "Author",
-  //     width: 190,
-  //   },
-  //   {
-  //     field: "uploader",
-  //     headerName: "Uploader",
-  //     width: 190,
-  //   },
-  //   {
-  //     field: "edit",
-  //     headerName: "Edit",
-  //     type: "actions",
-  //     width: 160,
-  //     getActions: ({ id }) => {
-  //       return [
-  //         <GridActionsCellItem
-  //           icon={<FontAwesomeIcon icon={faPen} />}
-  //           label="Edit"
-  //           onClick={() => handleEditClick(id)}
-  //         />,
-  //       ];
-  //     },
-  //   },
-  // ];
 
   const columnsAdmin = [
     { field: 'id', headerName: 'ID', width: 90 },
     {
       field: 'title',
       headerName: 'Title',
-      width: 300,
+      width: 450,
     },
     {
       field: 'author',
       headerName: 'Author',
-      width: 160,
+      width: 350,
     },
     {
-      field: 'uploader',
-      headerName: 'Uploader',
+      field: 'category',
+      headerName: 'Category',
+      width: 150,
+    },
+    {
+      field: 'part',
+      headerName: 'Part',
       width: 150,
     },
     {
@@ -124,46 +97,45 @@ const Dashboard = () => {
   ];
 
   const [rows, setRows] = useState([]);
-  const userId = localStorage.getItem('userID');
-
   const [pageSize, setPageSize] = React.useState(0);
 
   const fetchData = async () => {
-    // if (!userId) {
-    //   navigate('/login');
-    // }
-    // setOpen(true);
-    // await axios
-    //   .get(`/books/admin/${userId}`)
-    //   .then((res) => {
-    //     // console.log(res.data);
-    //     setPageSize(res.data.count);
-    //     setUserStatus(res.data.status);
-    //     // setBooks(res.data.books);
-    //     var rw = [];
-    //     if (res.data.books.length > 0) {
-    //       res.data.books.map((book, i) =>
-    //         rw.push({
-    //           id: i + 1,
-    //           title: book.title,
-    //           author: book.author,
-    //           uploader: book.user.name,
-    //           _id: book._id,
-    //         })
-    //       );
-    //       setRows(rw);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     toast.error(err.response.data.message || err.message);
-    //   });
-    // setOpen(false);
+    setOpen(true);
+    await axios
+      .get(
+        `${BASE_URL}/book${
+          userStatus === 'admin' ? '/get' : `/uploader/${user?._id}`
+        }`
+      )
+      .then((res) => {
+        // console.log(res.data);
+        setPageSize(res.data.count);
+
+        // setBooks(res.data.books);
+        var rw = [];
+        if (res.data.length > 0) {
+          res.data.map((book, i) =>
+            rw.push({
+              id: i + 1,
+              title: book?.title,
+              author: book?.author,
+              category: book?.category,
+              part: book?.part,
+            })
+          );
+          setRows(rw);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message || err.message);
+      });
+    setOpen(false);
   };
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userinfo.user);
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line
+    setUserStatus(user?.role);
     if (user && (user.role === 'admin' || user.role === 'uploader')) {
       navigate('/user/dashboard', { replace: true });
     }
@@ -173,6 +145,8 @@ const Dashboard = () => {
     if (!user) {
       navigate('/user/login', { replace: true });
     }
+
+    // eslint-disable-next-line
   }, [dispatch, navigate, user]);
 
   return (
@@ -185,14 +159,14 @@ const Dashboard = () => {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-        <h1>Dashboard - {userStatus.toUpperCase()}</h1>
+        <h1>Dashboard - {userStatus}</h1>
         <Toaster />
-        <Box sx={{ height: 600, width: '100%' }}>
+        <Box sx={{ height: 600, width: '80vw' }}>
           <DataGrid
             rows={rows}
             columns={columnsAdmin}
-            pageSize={9}
-            rowsPerPageOptions={[pageSize]}
+            pageSize={10}
+            rowsPerPageOptions={pageSize}
           />
         </Box>
       </div>

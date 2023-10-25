@@ -10,8 +10,7 @@ const upload = async (req, res) => {
     return res.status(400).json({ message: 'Please fill all fields!' });
   }
 
-  console.log(url.length);
-  console.log(part);
+
 
   if (url.length !== Number(part)) {
     return res
