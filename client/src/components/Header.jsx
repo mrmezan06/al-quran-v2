@@ -77,13 +77,13 @@ const Header = () => {
               </NavDropdown>
               {/* PDF COLLECTION */}
               <NavDropdown title="PDF Collection" id="pdfMenu">
-                <LinkContainer to="/quran-pdf">
+                <LinkContainer to="/Quran">
                   <NavDropdown.Item>AL Quran PDF</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/hadith-pdf">
+                <LinkContainer to="/Hadith">
                   <NavDropdown.Item>Hadith PDF</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/history-pdf">
+                <LinkContainer to="/History">
                   <NavDropdown.Item>Islamic History PDF</NavDropdown.Item>
                 </LinkContainer>
 
@@ -120,6 +120,23 @@ const Header = () => {
                     <NavDropdown.Item>Manage User</NavDropdown.Item>
                   </LinkContainer>
 
+                  <NavDropdown.Divider variant="dark" />
+                  <NavDropdown.Item onClick={handleLogout}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
+              {user && user?.role === 'uploader' && (
+                <NavDropdown title="Profile" id="userMenu">
+                  <LinkContainer to="/user/upload">
+                    <NavDropdown.Item>Upload</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/user/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/user/dashboard">
+                    <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                  </LinkContainer>
                   <NavDropdown.Divider variant="dark" />
                   <NavDropdown.Item onClick={handleLogout}>
                     Logout

@@ -127,4 +127,31 @@ const tokenLogin = async (req, res) => {
   }
 };
 
-module.exports = { register, login, logout, tokenLogin };
+const getUsersById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(400).json({ message: 'User does not exist!' });
+    }
+
+    if (user.role !== 'admin') {
+      return res.status(400).json({ message: 'Action denied!' });
+    }
+
+    const users = await User.find({});
+
+    // remove current user from the list
+    const filteredUsers = users.filter(
+      (u) => u._id.toString() !== user._id.toString()
+    );
+
+    res.status(200).json({ users: filteredUsers });
+  } catch (error) {
+    res.status(502).json({
+      error,
+    });
+  }
+};
+
+module.exports = { register, login, logout, tokenLogin, getUsersById };

@@ -19,7 +19,7 @@ export const tokenLogin = () => async (dispatch) => {
       },
       config
     );
-    console.log(data);
+    //console.log(data);
     dispatch({ type: 'USER_LOGIN_SUCCESS', payload: data });
   } catch (error) {
     localStorage.removeItem('user');

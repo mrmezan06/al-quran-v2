@@ -84,7 +84,8 @@ footer {
 }
 
 .center audio::-webkit-media-controls-panel {
-  background-color: #1f9bcf;
+ background-color: #f0ad4e;
+
 }
 
 /*
@@ -188,4 +189,117 @@ audio::-webkit-media-controls-current-time-display {
 
 .capitalize {
   text-transform: capitalize;
+}
+
+@media (max-width: 768px) {
+  .center {
+    flex-direction: column;
+  }
+  .centerV {
+    flex-direction: column;
+  }
+  .center-paginate {
+    width: 100%;
+  }
+  .center-paginate a {
+    width: 100%;
+  }
+  .center-paginate a:hover {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:focus {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:active {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:visited {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:link {
+    background-color: #1f9bee;
+  }
+  .center-paginate a {
+    background-color: #1f9bee;
+  }
+  .center-paginate a {
+    background-color: #1f9bee;
+  
+}
+}
+
+@media (max-width: 576px) {
+  .center {
+    flex-direction: column;
+  }
+  .centerV {
+    flex-direction: column;
+  }
+  .center-paginate {
+    width: 100%;
+  }
+  .center-paginate a {
+    width: 100%;
+  }
+  .center-paginate a:hover {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:focus {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:active {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:visited {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:link {
+    background-color: #1f9bee;
+  }
+  .center-paginate a {
+    background-color: #1f9bee;
+  }
+  .center-paginate a {
+    background-color: #1f9bee;
+  
+}
+  
+}
+
+@media (max-width: 320px) {
+  .center {
+    flex-direction: column;
+  }
+  .centerV {
+    flex-direction: column;
+  }
+  .center-paginate {
+    width: 100%;
+  }
+  .center-paginate a {
+    width: 100%;
+  }
+  .center-paginate a:hover {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:focus {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:active {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:visited {
+    background-color: #1f9bee;
+  }
+  .center-paginate a:link {
+    background-color: #1f9bee;
+  }
+  .center-paginate a {
+    background-color: #1f9bee;
+  }
+  .center-paginate a {
+    background-color: #1f9bee;
+  
+}
+  
 }

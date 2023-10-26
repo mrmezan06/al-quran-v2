@@ -63,7 +63,7 @@ const getBooks = async (req, res) => {
     if (books.length > 0) {
       res.status(200).json(books);
     } else {
-      res.status(200).json({ message: 'No data found!' });
+      res.status(200).json([]);
     }
   } catch (error) {
     res.status(502).json({
@@ -80,7 +80,7 @@ const getBooksByCategory = async (req, res) => {
     if (books.length > 0) {
       res.status(200).json(books);
     } else {
-      res.status(200).json({ message: 'No data found!' });
+      res.status(200).json([]);
     }
   } catch (error) {
     res.status(502).json({

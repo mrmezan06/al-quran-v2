@@ -29,11 +29,13 @@ export const getQuranIndex = () => async (dispatch) => {
   }
 };
 
-export const getSuraById = (suraNumber) => async (dispatch) => {
+export const getSuraById = (suraNumber, page) => async (dispatch) => {
   try {
     dispatch({ type: QURAN_AYAT_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/sura/get/${suraNumber}`);
+    const { data } = await axios.get(
+      `${BASE_URL}/sura/get/${suraNumber}/${page}`
+    );
 
     // console.log(data);
 

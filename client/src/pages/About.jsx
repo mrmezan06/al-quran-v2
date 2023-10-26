@@ -1,15 +1,6 @@
-import React, { useEffect } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { getHadithIndex } from '../actions/hadithActions';
 
 const About = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getHadithIndex());
-  });
-
   return (
     <Row className="m-2 fullcenter">
       <Card className="fullcenter">

@@ -2,7 +2,6 @@ import { Spinner, Table } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getHadithIndex } from '../actions/hadithActions';
 import { getQuranIndex } from '../actions/quranActions';
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -10,7 +9,6 @@ const HomePage = () => {
   const { loading, error, index } = quranIndex;
 
   useEffect(() => {
-    dispatch(getHadithIndex());
     dispatch(getQuranIndex());
   }, [dispatch]);
 

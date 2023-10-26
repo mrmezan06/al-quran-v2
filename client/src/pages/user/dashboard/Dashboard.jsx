@@ -23,23 +23,25 @@ const Dashboard = () => {
 
   const handleEditClick = (id) => {
     // navigate(`/edit/${rows[id - 1]._id}`);
+    toast.error('Under Development');
   };
   const handleDeleteClick = async (id) => {
     // setOpen(true);
-    // try {
-    //   const bookId = rows[id - 1]._id;
-    //   await axios.delete(`/books/user/${userId}/${bookId}`).then((res) => {
+    // await axios
+    //   .delete(`${BASE_URL}/book/delete/${rows[id - 1]._id}`)
+    //   .then((res) => {
     //     if (res.status === 200) {
-    //       toast.success('Book Deleted Successfully');
+    //       toast.success('Book deleted successfully.');
     //       fetchData();
     //     } else {
     //       toast.error(res.data.message);
     //     }
+    //   })
+    //   .catch((err) => {
+    //     toast.error(err.response.data.message || err.message);
     //   });
-    // } catch (error) {
-    //   toast.error(error.response.data.message);
-    // }
     // setOpen(false);
+    toast.error('Under Development');
   };
 
   const columnsAdmin = [
@@ -97,44 +99,10 @@ const Dashboard = () => {
   ];
 
   const [rows, setRows] = useState([]);
-  const [pageSize, setPageSize] = React.useState(0);
 
-  const fetchData = async () => {
-    setOpen(true);
-    await axios
-      .get(
-        `${BASE_URL}/book${
-          userStatus === 'admin' ? '/get' : `/uploader/${user?._id}`
-        }`
-      )
-      .then((res) => {
-        // console.log(res.data);
-        setPageSize(res.data.count);
-
-        // setBooks(res.data.books);
-        var rw = [];
-        if (res.data.length > 0) {
-          res.data.map((book, i) =>
-            rw.push({
-              id: i + 1,
-              title: book?.title,
-              author: book?.author,
-              category: book?.category,
-              part: book?.part,
-            })
-          );
-          setRows(rw);
-        }
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message || err.message);
-      });
-    setOpen(false);
-  };
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userinfo.user);
   useEffect(() => {
-    fetchData();
     setUserStatus(user?.role);
     if (user && (user.role === 'admin' || user.role === 'uploader')) {
       navigate('/user/dashboard', { replace: true });
@@ -146,8 +114,37 @@ const Dashboard = () => {
       navigate('/user/login', { replace: true });
     }
 
-    // eslint-disable-next-line
-  }, [dispatch, navigate, user]);
+    const fetchData = async () => {
+      setOpen(true);
+      await axios
+        .get(
+          `${BASE_URL}/book${
+            userStatus === 'admin' ? '/get' : `/uploader/${user?._id}`
+          }`
+        )
+        .then((res) => {
+          var rw = [];
+          if (res.data.length > 0) {
+            res.data.map((book, i) =>
+              rw.push({
+                id: i + 1,
+                title: book?.title,
+                author: book?.author,
+                category: book?.category,
+                part: book?.part,
+              })
+            );
+            setRows(rw);
+          }
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message || err.message);
+        });
+      setOpen(false);
+    };
+
+    fetchData();
+  }, [dispatch, navigate, user, userStatus]);
 
   return (
     <div className="main-user">
@@ -166,7 +163,7 @@ const Dashboard = () => {
             rows={rows}
             columns={columnsAdmin}
             pageSize={10}
-            rowsPerPageOptions={pageSize}
+            rowsPerPageOptions={10}
           />
         </Box>
       </div>

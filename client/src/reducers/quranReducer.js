@@ -30,11 +30,12 @@ export const getSuraReducer = (state = { sura: {} }, action) => {
     case QURAN_AYAT_SUCCESS:
       return {
         loading: false,
-        bangla: action.payload.bangla,
-        english: action.payload.english,
+        verses: action.payload.verses,
+        page: action.payload.page,
+        pageSize: action.payload.pageSize,
+        totalPage: action.payload.totalPage,
+        fullAudio: action.payload.fullAudio,
         details: action.payload.details,
-        audio: action.payload.audio,
-        ayatAudio: action.payload.ayatAudio,
       };
     case QURAN_AYAT_FAIL:
       return { loading: false, error: action.payload };

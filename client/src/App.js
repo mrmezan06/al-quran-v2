@@ -15,9 +15,10 @@ import Read from './pages/user/read/Read';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { tokenLogin } from './actions/userActions';
+import BookIndexPage from './pages/Book/BookIndexPage';
+import CategoryIndexPage from './pages/Book/CategoryIndexPage';
 
 const App = () => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,8 +38,12 @@ const App = () => {
           <Route path="/user/dashboard" element={<Dashboard />} />
           <Route path="/user/manage" element={<ManageUser />} />
           <Route path="/user/profile" element={<Profile />} />
-          <Route path="/read" element={<Read />} />
+          <Route path="/read/:key" element={<Read />} />
           {/* Book Section */}
+          <Route path="/index-pdf" element={<BookIndexPage />} />
+          <Route path="/Quran" element={<CategoryIndexPage />} />
+          <Route path="/Hadith" element={<CategoryIndexPage />} />
+          <Route path="/History" element={<CategoryIndexPage />} />
 
           {/* Quran Section */}
           <Route path="/sura/:sura_number/:pageNumber" element={<SuraPage />} />
