@@ -4,6 +4,7 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { BASE_URL } from '../../../constants/BASE_URL';
 
 const Registration = () => {
   const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ const Registration = () => {
     }
     setOpen(true);
     await axios
-      .post('/auth/register', { name, email, password })
+      .post(`${BASE_URL}/user/register`, { name, email, password })
       .then((res) => {
         console.log(res);
         toast.success('Registration successful');
