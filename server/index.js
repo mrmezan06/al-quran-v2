@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 // WhiteList Array of Origins
-const whitelist = ['https://islamic-life.netlify.app', 'http://localhost:3000'];
+const whitelist = ['https://islam-life.netlify.app', 'http://localhost:3000'];
 
 // Cors Options
 const corsOptions = {
