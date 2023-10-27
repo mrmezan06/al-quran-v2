@@ -65,7 +65,7 @@ const Upload = () => {
         <CircularProgress color="inherit" />
       </Backdrop>
       <Toaster />
-      <div className="form">
+      <div className="form" style={{ overflow: 'auto' }}>
         <h1>Upload Books</h1>
         <div className="info">
           <label htmlFor="name" className="name">
@@ -134,12 +134,13 @@ const Upload = () => {
             name="book"
             id="book"
             value={url.toString()}
-            placeholder="Book URL of the book"
+            placeholder="Urls of the book by comma separated"
             onChange={(e) => {
               const urlArray = e.target.value.split(',');
               setUrl(urlArray);
             }}
             cols={4}
+            rows={2}
             required
           ></textarea>
         </div>
