@@ -118,7 +118,15 @@ const Upload = () => {
             type="text"
             name="category"
             id="category"
-            placeholder="Category of the book. Ex: Quran, Hadith etc."
+            placeholder="Category of the book. Ex:  'Quran',
+            'Hadith',
+            'Fiqh',
+            'Seerah',
+            'History',
+            'Tafseer',
+            'Aqeedah',
+            'Dawah',
+            'Other',etc."
             value={category}
             onChange={(e) => {
               setCategory(e.target.value);
