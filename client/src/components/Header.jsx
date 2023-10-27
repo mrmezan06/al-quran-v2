@@ -143,6 +143,18 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               )}
+              {user && user?.role === 'user' && (
+                <NavDropdown title="Profile" id="userMenu">
+                  <LinkContainer to="/user/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Divider variant="dark" />
+                  <NavDropdown.Item onClick={handleLogout}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
