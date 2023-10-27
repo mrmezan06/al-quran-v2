@@ -42,7 +42,7 @@ const Upload = () => {
           toast.success('Book uploaded successfully');
           setTitle('');
           setAuthor('');
-          setPart(0);
+          setPart(1);
           setCategory('');
           setUrl([]);
         } else {
