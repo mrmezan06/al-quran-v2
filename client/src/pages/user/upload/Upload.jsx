@@ -129,7 +129,7 @@ const Upload = () => {
 
         <div className="info">
           <label htmlFor="book">Book URL</label>
-          <input
+          <textarea
             type="text"
             name="book"
             id="book"
@@ -139,8 +139,9 @@ const Upload = () => {
               const urlArray = e.target.value.split(',');
               setUrl(urlArray);
             }}
+            cols={4}
             required
-          />
+          ></textarea>
         </div>
         <div className="submit">
           <button className="submit" onClick={() => handleUpload()}>
